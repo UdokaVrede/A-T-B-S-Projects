@@ -56,6 +56,7 @@ class Window(Frame):
         deleteButton = Button(self, text = "Delete Birthday", command = self.delete_birth)
         deleteButton.place(x=30, y=300)
        
+       
 
     def client_exit(self):
       exit()

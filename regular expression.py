@@ -10,7 +10,7 @@ print('Phone number found: ',mo)            #output of the ungrouped match objec
 
 #grouping expressions
 phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d-\d\d\d\d)')  
-mop = phoneNumRegex.search('My number is 415-505-4242.')         #search checks for matching objects from the regex object,'phoneNumRegex' which the string is passed into
+mop = phoneNumRegex.search('My number is 415-505-4242.')          #search checks for matching objects from the regex object,'phoneNumRegex' which the string is passed into
 print('Phone number found: ' + mop.group(2))
 print(len(mop.group(2)))
 
