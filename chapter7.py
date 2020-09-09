@@ -203,7 +203,7 @@ try:
 except AttributeError:
     print('Oh that\'s an issue')
 
-#using . to match only one character which is not a newlines
+#using . to match only one character which is not a newline
 try:
     dotRegex=re.compile(r'.at')
     dotReturn=dotRegex.findall('The 6at flat fat cat *at sat on the mat')
@@ -239,11 +239,66 @@ except AttributeError:
     print('You might be missing something')
 
 
-#using the . * and re.DOTALL to match all characters including the newline
+#using re.I to match all cases of a character
 try:
-    #this would return all characters including the newline
-    reDotAllRegex = re.compile(r'.*',re.DOTALL)
-    reDotAllReturn = reDotAllRegex.search('<Python is awesome> \n for Data Science>')
-    print(reDotAllReturn.group())
+    caseRegex = re.compile(r'God',re.I)
+    caseReturn = caseRegex.findall('I have a very big GOD oh, who is always by My side a very big God oh by my sIde, by my Side')
+    print(caseReturn)
 except AttributeError:
-    print('You might be missing something')
+    print('That\'s an error')
+
+# THE .SUB() METHOD SUBSTITUTES PATTERNS IN A REGEX PATTERN WITH NEW VALUES AND RETURNS THE NEW  VALUE
+#using sub() method to substitute patterns, the 1st is the regex pattern and the 2nd is the new pattern to be substituted with th regex pattern
+try:
+    #1st regex pattern, 'Outrage'
+    substRegex = re.compile(r'burglar',re.I)
+    #2nd regex pattern, 'thief' to substitute 'burglar' in the text passed into the .sub() method
+    v = 'Yesterday a burglar, came to our office, the Burglar was caught'
+    substReturn = substRegex.sub('Thief', v)
+    print(substReturn)
+except AttributeError:
+    print('Okay, you should check your code again')
+
+#using (\w)\w* and \1**** to censor character
+#This substitutes the character in the regex pattern with an * and also the next 1 word with *
+#If you choose to censor more than 1 word using the number followed by * substitutes the word
+try:
+    #1st regex pattern, "agent"
+    censorRegex = re.compile(r'agent (\w)\w*')
+    #2nd regex pattern, '\1***' also passed into rawstring,r to substitute 'agent' in the text passed into the .sub() method
+    v = 'the murdered agents were agent thomas, agent victor, agent susanna and agent madpik'
+    censorReturn = censorRegex.sub(r'\1****', v)
+    print(censorReturn)
+except AttributeError:
+    print('Check your code')
+
+#WORKING WITH COMPLEX REGEX 
+#using re.verbose() to ignore comments, newline and whitespaces in a regex pattern
+try:
+    #the triple quote is used to create a multiline string to enable the regular expression to be spread to all other lines
+# ''' The # symbol and everything after it to the end of the
+# line are ignored. Also, the extra spaces inside the multiline string for the reg-
+# ular expression are not considered part of the text pattern to be matched.
+# This lets you organize the regular expression so it’s easier to read.'''
+    
+    phoneRegex = re.compile(r'''(
+        (\d{3}|\(\d{3}\))?          #area code...digits
+        (\s|-|\.)?                  #space,newline or tab, seperator and .(this would match either a space,newline,tab,-,or .)
+        \d{3}                       #digits
+        (\s|-|\.)
+        \d{4}
+        (\s*(ext|x|ext.)\s*\d{2,5})?
+        )''', re.VERBOSE)
+    v=input('Enter the phone number: ')
+    print((phoneRegex.search(v)).group())
+    #this would return the actual phone number removing the country code
+
+except AttributeError:
+    print('OH DEAR YOUR CODE IS TRASH')
+
+#using the | to pass more than one value to the re.compile() function
+#the re.compile() function usually takes only one value alongside the pattern passed in the rawstring, r, so to be able to pass more than one value, you use the |
+try:
+    multiRegex=re.compile(r'bam',re.I|re.DOTALL|re.VERBOSE)
+except AttributeError:
+    print('Where is the bug?')
