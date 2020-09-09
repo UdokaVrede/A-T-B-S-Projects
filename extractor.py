@@ -4,6 +4,8 @@
 # 2. findall matches in the text,create 2 regex,format nicely
 # 3. paste onto clipboard, display some message if none is found.
 
+#Note: to use this code, before running the program, copy a text containing emails and address or any other text
+
 import re, pyperclip
 #phone number regex
 phoneRegex = re.compile(r'''(
@@ -24,24 +26,20 @@ emailRegex = re.compile(r'''([a-zA-Z0-9.%+-]+
             )''',re.VERBOSE)
 
 #find matches in the clipboard
-text = str(pyperclip.paste())
+text = str(pyperclip.paste())       #pastes the copied value into the text variable
 matched_values= []
-for nums in phoneRegex.findall(text):
-    print(nums)
-    phoneNum = '-'.join([nums[1],nums[3],nums[5]])
-    if nums[8]!= '':
-        print(nums[8])
-        phoneNum += 'x' + nums[8]
-    matched_values.append(phoneNum)
-    print(phoneNum)
-    print(matched_values)
-for mails in emailRegex.findall(text):
-    matched_values.append(mails[0])
+for nums in phoneRegex.findall(text):   #iterates through the values pasted in text and finds all matching patterns to the phoneRegex
+    phoneNum = '-'.join([nums[1],nums[3],nums[5]])  #joins the values in groups 1(the area code),3,5 to phoneNum
+    if nums[8]!= '':                        #checks that group 8 is not empty
+        phoneNum += 'x' + nums[8]       #adds group 8 to phoneNum
+    matched_values.append(phoneNum)     #appends phoneNum to the empty list 'matched_values'
+for mails in emailRegex.findall(text):  
+    matched_values.append(mails[0])     #appends mails to matched_values, note that groups(0) returns the whole matched value, this is the same as mails[0] in this code
     print(matched_values)
 
 #copy results to the clipboard
-if len(matched_values) > 0:
-    pyperclip.copy('\n'.join(matched_values))
+if len(matched_values) > 0:             #checks for that length matched_values is > 0
+    pyperclip.copy('\n'.join(matched_values))   #joins with newline and copies the values in matched_values to the clipboard
     print('copied to clipboard:')
     print('\n'.join(matched_values))
 else:
