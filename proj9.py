@@ -1,4 +1,8 @@
-import re, shutil, os
+
+
+
+
+import re, shutil, os, time
 
 fi = open('fi.txt','a')
 fi.write('07-04-1900, ff gghbhjbjh 09-09-2000')
@@ -28,3 +32,8 @@ for AmericaFile in os.listdir('.'):
     euroFile = os.path.join(actualPath,euroFile)
     print(AmericaFile)
     print(euroFile)
+
+    print('Renaming "%s" to "%s"...'%(AmericaFile,euroFile))
+    time.sleep(3)
+    shutil.move(AmericaFile,euroFile)       #this moves the Americafile to the eurofile
+    print('%s successfully moved to %s'%(AmericaFile,euroFile))
