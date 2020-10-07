@@ -34,6 +34,7 @@ def zipBackup():    #function definition
 
             if allfiles.startswith(newbase) and allfiles.endswith('.zip'):      #ignore files that start with the values in newbase and end with zip
                 continue
+
             
             backup.write(os.path.join(folders, allfiles))           #write the folders and the files to backup
     backup.close()      #close the zipfile
